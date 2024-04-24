@@ -44,7 +44,11 @@ func main() {
 
 	table.SetSelectedStyle(tcell.StyleDefault.Background(tcell.ColorWhite).Foreground(tcell.ColorBlack))
 
-	if err := app.SetRoot(table, true).Run(); err != nil {
+	statusBar := tview.NewTextView().SetText("Press 'q' to exit").SetTextAlign(tview.AlignLeft).SetTextColor(tcell.ColorYellow)
+
+	flex := tview.NewFlex().SetDirection(tview.FlexRow).AddItem(table, 0, 1, true).AddItem(statusBar, 1, 0, false)
+
+	if err := app.SetRoot(flex, true).Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running application: %v\n", err)
 		os.Exit(1)
 	}
